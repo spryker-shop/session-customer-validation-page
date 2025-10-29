@@ -113,6 +113,9 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
             return;
         }
 
+        // Update session times after login for existing session
+        $request->getSession()->getMetadataBag()->stampNew();
+
         $this->customerSessionSaverPlugin->saveSession(
             (new SessionEntityRequestTransfer())
                 ->setIdEntity($customerTransfer->getIdCustomerOrFail())
