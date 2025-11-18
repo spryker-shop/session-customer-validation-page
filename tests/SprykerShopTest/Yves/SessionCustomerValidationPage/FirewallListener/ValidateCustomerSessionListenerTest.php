@@ -44,6 +44,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock(),
             $this->tester->createCustomerSessionValidatorPluginMock(),
             $this->tester->createConfigMock(),
+            [],
         );
 
         $sessionMock = $this->createSessionMock();
@@ -68,6 +69,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock(),
             $this->tester->createCustomerSessionValidatorPluginMock(),
             $this->tester->createConfigMock(),
+            [],
             $this->createTokenStorageMock(),
         );
 
@@ -93,6 +95,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock(),
             $this->tester->createCustomerSessionValidatorPluginMock(),
             $this->tester->createConfigMock(),
+            [],
             $this->createTokenStorageMock(
                 $this->tester->createAuthenticationTokenMock(),
             ),
@@ -121,6 +124,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock(),
             $customerSessionValidatorPluginMock,
             $this->tester->createConfigMock(),
+            [],
             $this->createTokenStorageMock(
                 $this->tester->createAuthenticationTokenMock(true),
             ),
@@ -147,6 +151,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock(),
             $this->tester->createCustomerSessionValidatorPluginMock(),
             $this->tester->createConfigMock(),
+            [],
             $this->createTokenStorageMock(
                 $this->tester->createAuthenticationTokenMock(true),
             ),
@@ -174,6 +179,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock((new CustomerTransfer())->setIdCustomer(1)),
             $this->tester->createCustomerSessionValidatorPluginMock(true),
             $this->tester->createConfigMock(),
+            [],
             $this->createTokenStorageMock(
                 $this->tester->createAuthenticationTokenMock(true),
             ),
@@ -201,6 +207,7 @@ class ValidateCustomerSessionListenerTest extends Unit
             $this->tester->createCustomerClientMock((new CustomerTransfer())->setIdCustomer(1)),
             $this->tester->createCustomerSessionValidatorPluginMock(),
             $this->tester->createConfigMock(),
+            [],
             $this->createTokenStorageMock(
                 $this->tester->createAuthenticationTokenMock(true),
             ),

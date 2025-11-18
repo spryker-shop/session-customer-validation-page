@@ -33,41 +33,19 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
     protected const SESSION_INVALIDATE_LIFETIME = 0;
 
     /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface
-     */
-    protected SessionCustomerValidationPageToCustomerClientInterface $customerClient;
-
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface
-     */
-    protected CustomerSessionValidatorPluginInterface $customerSessionValidatorPlugin;
-
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig
-     */
-    protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
-
-    /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface|null
-     */
-    protected ?TokenStorageInterface $tokenStorage;
-
-    /**
      * @param \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface $customerClient
      * @param \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface $customerSessionValidatorPlugin
      * @param \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig
+     * @param array<\SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface> $customerSessionValidatorPlugins
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface|null $tokenStorage
      */
     public function __construct(
-        SessionCustomerValidationPageToCustomerClientInterface $customerClient,
-        CustomerSessionValidatorPluginInterface $customerSessionValidatorPlugin,
-        SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig,
-        ?TokenStorageInterface $tokenStorage = null
+        protected SessionCustomerValidationPageToCustomerClientInterface $customerClient,
+        protected CustomerSessionValidatorPluginInterface $customerSessionValidatorPlugin,
+        protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig,
+        protected array $customerSessionValidatorPlugins,
+        protected ?TokenStorageInterface $tokenStorage = null
     ) {
-        $this->customerClient = $customerClient;
-        $this->customerSessionValidatorPlugin = $customerSessionValidatorPlugin;
-        $this->sessionCustomerValidationPageConfig = $sessionCustomerValidationPageConfig;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -102,19 +80,22 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
             ->setIdSession($session->getId())
             ->setEntityType($this->sessionCustomerValidationPageConfig->getSessionEntityType());
 
-        $sessionEntityResponseTransfer = $this->customerSessionValidatorPlugin->validate($sessionEntityRequestTransfer);
-        if ($sessionEntityResponseTransfer->getIsSuccessfull()) {
-            return;
+        if ($this->customerSessionValidatorPlugins === []) {
+            $this->customerSessionValidatorPlugins = [$this->customerSessionValidatorPlugin];
         }
+        foreach ($this->customerSessionValidatorPlugins as $customerSessionValidatorPlugin) {
+            $sessionEntityResponseTransfer = $customerSessionValidatorPlugin->validate($sessionEntityRequestTransfer);
+            if ($sessionEntityResponseTransfer->getIsSuccessfull() === false) {
+                $this->customerClient->logout();
+                $session->invalidate(static::SESSION_INVALIDATE_LIFETIME);
 
-        $this->customerClient->logout();
-        $session->invalidate(static::SESSION_INVALIDATE_LIFETIME);
+                /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage */
+                $tokenStorage = $this->tokenStorage;
+                $tokenStorage->setToken(null);
 
-        /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage */
-        $tokenStorage = $this->tokenStorage;
-        $tokenStorage->setToken(null);
-
-        $event->setResponse(new RedirectResponse(static::LOGIN_PATH));
+                $event->setResponse(new RedirectResponse(static::LOGIN_PATH));
+            }
+        }
     }
 
     /**

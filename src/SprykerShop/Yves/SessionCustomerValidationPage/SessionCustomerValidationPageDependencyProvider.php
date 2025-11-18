@@ -27,9 +27,16 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
     public const PLUGIN_CUSTOMER_SESSION_SAVER = 'PLUGIN_CUSTOMER_SESSION_SAVER';
 
     /**
+     * @deprecated Use {@link PLUGINS_CUSTOMER_SESSION_VALIDATOR} instead.
+     *
      * @var string
      */
     public const PLUGIN_CUSTOMER_SESSION_VALIDATOR = 'PLUGIN_CUSTOMER_SESSION_VALIDATOR';
+
+    /**
+     * @var string
+     */
+    public const PLUGINS_CUSTOMER_SESSION_VALIDATOR = 'PLUGINS_CUSTOMER_SESSION_VALIDATOR';
 
     /**
      * @var string
@@ -54,6 +61,7 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
         $container = $this->addCustomerSessionValidatorPlugin($container);
         $container = $this->addCustomerClient($container);
         $container = $this->addSessionClient($container);
+        $container = $this->addCustomerSessionValidatorPlugins($container);
 
         return $container;
     }
@@ -92,6 +100,8 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
     }
 
     /**
+     * @deprecated use {@link addCustomerSessionValidatorPlugins()} instead.
+     *
      * @param \Spryker\Yves\Kernel\Container $container
      *
      * @return \Spryker\Yves\Kernel\Container
@@ -106,6 +116,8 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
     }
 
     /**
+     * @deprecated Use {@link getCustomerSessionValidatorPluginS()} instead.
+     *
      * @throws \SprykerShop\Yves\SessionCustomerValidationPage\Exception\MissingCustomerSessionValidatorPluginException
      *
      * @return \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface
@@ -122,6 +134,28 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
                 __METHOD__,
             ),
         );
+    }
+
+    /**
+     * @param \Spryker\Yves\Kernel\Container $container
+     *
+     * @return \Spryker\Yves\Kernel\Container
+     */
+    protected function addCustomerSessionValidatorPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_CUSTOMER_SESSION_VALIDATOR, function () {
+            return $this->getCustomerSessionValidatorPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<\SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface>
+     */
+    protected function getCustomerSessionValidatorPlugins(): array
+    {
+        return [];
     }
 
     /**

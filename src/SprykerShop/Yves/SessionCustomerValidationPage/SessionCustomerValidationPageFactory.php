@@ -59,6 +59,7 @@ class SessionCustomerValidationPageFactory extends AbstractFactory
             $this->getCustomerClient(),
             $this->getCustomerSessionValidatorPlugin(),
             $this->getConfig(),
+            $this->getSessionValidatorPlugins(),
         );
     }
 
@@ -103,5 +104,13 @@ class SessionCustomerValidationPageFactory extends AbstractFactory
     public function getSessionClient(): SessionCustomerValidationPageToSessionClientInterface
     {
         return $this->getProvidedDependency(SessionCustomerValidationPageDependencyProvider::CLIENT_SESSION);
+    }
+
+    /**
+     * @return array<\SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface>
+     */
+    public function getSessionValidatorPlugins(): array
+    {
+        return $this->getProvidedDependency(SessionCustomerValidationPageDependencyProvider::PLUGINS_CUSTOMER_SESSION_VALIDATOR);
     }
 }
