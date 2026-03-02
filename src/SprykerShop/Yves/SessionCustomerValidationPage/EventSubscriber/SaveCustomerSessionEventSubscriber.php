@@ -37,11 +37,6 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
      */
     protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
 
-    /**
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface $customerClient
-     * @param \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionSaverPluginInterface $customerSessionSaverPlugin
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig
-     */
     public function __construct(
         SessionCustomerValidationPageToCustomerClientInterface $customerClient,
         CustomerSessionSaverPluginInterface $customerSessionSaverPlugin,
@@ -69,32 +64,16 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
-     *
-     * @return void
-     */
     public function onInteractiveLogin(InteractiveLoginEvent $event): void
     {
         $this->saveSession($event->getRequest(), $event->getAuthenticationToken()->getUser());
     }
 
-    /**
-     * @param \Symfony\Component\Security\Http\Event\LoginSuccessEvent $event
-     *
-     * @return void
-     */
     public function onLoginSuccess(LoginSuccessEvent $event): void
     {
         $this->saveSession($event->getRequest(), $event->getUser());
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Security\Core\User\UserInterface|null $user
-     *
-     * @return void
-     */
     protected function saveSession(Request $request, ?UserInterface $user): void
     {
         if (!$request->hasSession()) {
@@ -124,11 +103,6 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
         );
     }
 
-    /**
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user
-     *
-     * @return string
-     */
     protected function getUserIdentifier(UserInterface $user): string
     {
         if ($this->isSymfonyVersion5() === true) {

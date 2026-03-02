@@ -32,9 +32,6 @@ class CustomerUpdateSessionPostImpersonationPluginTest extends Unit
      */
     protected SessionCustomerValidationPageYvesTester $tester;
 
-    /**
-     * @return void
-     */
     public function testExecuteShouldNotUpdateSessionWhenCustomerIsNotValid(): void
     {
         // Arrange
@@ -51,9 +48,6 @@ class CustomerUpdateSessionPostImpersonationPluginTest extends Unit
         $customerUpdateSessionPostImpersonationPlugin->execute(new CustomerTransfer());
     }
 
-    /**
-     * @return void
-     */
     public function testExecuteShouldUpdateSessionCustomerWhenCustomerIsValid(): void
     {
         // Arrange

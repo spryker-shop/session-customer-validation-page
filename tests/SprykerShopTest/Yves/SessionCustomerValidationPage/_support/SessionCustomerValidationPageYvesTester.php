@@ -82,9 +82,6 @@ class SessionCustomerValidationPageYvesTester extends Actor
         );
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig
-     */
     public function createConfigMock(): SessionCustomerValidationPageConfig
     {
         return Stub::makeEmpty(

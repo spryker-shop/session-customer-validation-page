@@ -9,8 +9,5 @@ namespace SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client;
 
 interface SessionCustomerValidationPageToSessionClientInterface
 {
-    /**
-     * @return string
-     */
     public function getId(): string;
 }

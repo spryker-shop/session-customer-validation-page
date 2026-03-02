@@ -48,21 +48,11 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
     ) {
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool|null
-     */
     public function supports(Request $request): ?bool
     {
         return null;
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     *
-     * @return void
-     */
     public function authenticate(RequestEvent $event): void
     {
         if (!$this->isAuthenticated($event)) {
@@ -98,21 +88,11 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
         }
     }
 
-    /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     *
-     * @return void
-     */
     public function setTokenStorage(TokenStorageInterface $tokenStorage): void
     {
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     *
-     * @return bool
-     */
     protected function isAuthenticated(RequestEvent $event): bool
     {
         if ($this->tokenStorage === null) {

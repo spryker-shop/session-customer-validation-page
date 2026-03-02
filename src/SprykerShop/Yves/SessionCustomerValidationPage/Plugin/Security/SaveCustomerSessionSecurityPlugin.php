@@ -33,11 +33,6 @@ class SaveCustomerSessionSecurityPlugin extends AbstractPlugin implements Securi
         return $this->addEventSubscriber($securityBuilder);
     }
 
-    /**
-     * @param \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface $securityBuilder
-     *
-     * @return \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface
-     */
     protected function addEventSubscriber(SecurityBuilderInterface $securityBuilder): SecurityBuilderInterface
     {
         return $securityBuilder->addEventSubscriber(function () {

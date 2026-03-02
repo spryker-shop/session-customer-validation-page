@@ -34,9 +34,6 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
      */
     protected SessionCustomerValidationPageYvesTester $tester;
 
-    /**
-     * @return void
-     */
     public function testGetSubscribedEventsShouldReturnEvents(): void
     {
         // Act
@@ -55,9 +52,6 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
         $this->assertArrayHasKey(LoginSuccessEvent::class, $subscribedEvents);
     }
 
-    /**
-     * @return void
-     */
     public function testOnInteractiveLoginShouldNotSaveSessionCustomerDataWhenRequestDoesNotHaveSession(): void
     {
         // Arrange
@@ -80,9 +74,6 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
         $saveCustomerSessionEventSubscriber->onInteractiveLogin($event);
     }
 
-    /**
-     * @return void
-     */
     public function testOnInteractiveLoginShouldNotSaveSessionCustomerDataWhenUserIsNotSet(): void
     {
         // Arrange
@@ -105,9 +96,6 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
         $saveCustomerSessionEventSubscriber->onInteractiveLogin($event);
     }
 
-    /**
-     * @return void
-     */
     public function testOnInteractiveLoginShouldNotSaveSessionCustomerDataWhenCustomerIsNotFound(): void
     {
         // Arrange
@@ -130,9 +118,6 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
         $saveCustomerSessionEventSubscriber->onInteractiveLogin($event);
     }
 
-    /**
-     * @return void
-     */
     public function testOnInteractiveLoginShouldNotSaveSessionCustomerDataWhenCustomerDoesNotHaveId(): void
     {
         // Arrange
@@ -155,9 +140,6 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
         $saveCustomerSessionEventSubscriber->onInteractiveLogin($event);
     }
 
-    /**
-     * @return void
-     */
     public function testOnInteractiveLoginShouldSaveSessionCustomerDataWhenCustomerHasId(): void
     {
         // Arrange

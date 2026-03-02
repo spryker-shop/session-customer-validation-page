@@ -61,10 +61,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
      */
     protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
 
-    /**
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\FirewallListener\ValidateCustomerSessionListenerInterface $validateCustomerSessionListener
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig
-     */
     public function __construct(
         ValidateCustomerSessionListenerInterface $validateCustomerSessionListener,
         SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig
@@ -73,12 +69,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
         $this->sessionCustomerValidationPageConfig = $sessionCustomerValidationPageConfig;
     }
 
-    /**
-     * @param \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface $securityBuilder
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface
-     */
     public function extend(SecurityBuilderInterface $securityBuilder, ContainerInterface $container): SecurityBuilderInterface
     {
         $this->extendFirewall($securityBuilder);
@@ -89,11 +79,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
         return $securityBuilder;
     }
 
-    /**
-     * @param \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface $securityBuilder
-     *
-     * @return \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface
-     */
     protected function extendFirewall(SecurityBuilderInterface $securityBuilder): SecurityBuilderInterface
     {
         $customerFirewallConfiguration = $this->findFirewall($securityBuilder, static::SECURITY_FIREWALL_NAME);
@@ -107,11 +92,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
         ]);
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addAuthenticationListenerFactory(ContainerInterface $container): ContainerInterface
     {
         $container->set(
@@ -145,11 +125,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
         return $container;
     }
 
-    /**
-     * @param \Spryker\Service\Container\ContainerInterface $container
-     *
-     * @return \Spryker\Service\Container\ContainerInterface
-     */
     protected function addAuthenticationListenerPrototype(ContainerInterface $container): ContainerInterface
     {
         $container->set(static::SERVICE_SECURITY_AUTHENTICATION_LISTENER_CUSTOMER_SESSION_VALIDATOR_PROTO, $container->protect(function () use ($container) {

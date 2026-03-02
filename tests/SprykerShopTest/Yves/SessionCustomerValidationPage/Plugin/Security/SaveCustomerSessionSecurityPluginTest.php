@@ -30,9 +30,6 @@ class SaveCustomerSessionSecurityPluginTest extends Unit
      */
     protected SessionCustomerValidationPageYvesTester $tester;
 
-    /**
-     * @return void
-     */
     public function testExtendShouldAddEventSubscriber(): void
     {
         // Arrange

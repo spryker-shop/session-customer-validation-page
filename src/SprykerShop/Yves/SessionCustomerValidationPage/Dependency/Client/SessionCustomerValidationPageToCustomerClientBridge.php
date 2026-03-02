@@ -24,27 +24,16 @@ class SessionCustomerValidationPageToCustomerClientBridge implements SessionCust
         $this->customerClient = $customerClient;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CustomerTransfer|null
-     */
     public function getCustomer(): ?CustomerTransfer
     {
         return $this->customerClient->getCustomer();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
     public function getCustomerByEmail(CustomerTransfer $customerTransfer): CustomerTransfer
     {
         return $this->customerClient->getCustomerByEmail($customerTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function logout(): void
     {
         $this->customerClient->logout();

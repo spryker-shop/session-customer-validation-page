@@ -22,9 +22,6 @@ class SessionCustomerValidationPageToSessionClientBridge implements SessionCusto
         $this->sessionClient = $sessionClient;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->sessionClient->getId();

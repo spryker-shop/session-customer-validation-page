@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\CustomerTransfer;
 
 interface CustomerSessionUpdaterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return void
-     */
     public function update(CustomerTransfer $customerTransfer): void;
 }

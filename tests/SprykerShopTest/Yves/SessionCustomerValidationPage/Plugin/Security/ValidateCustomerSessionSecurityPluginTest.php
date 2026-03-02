@@ -73,9 +73,6 @@ class ValidateCustomerSessionSecurityPluginTest extends Unit
      */
     protected SessionCustomerValidationPageYvesTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -86,9 +83,6 @@ class ValidateCustomerSessionSecurityPluginTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testExtendShouldNotExtendFirewallWhenFirewallDoesNotExist(): void
     {
         // Arrange
@@ -101,9 +95,6 @@ class ValidateCustomerSessionSecurityPluginTest extends Unit
         $this->assertCount(0, $securityBuilder->getConfiguration()->getFirewalls());
     }
 
-    /**
-     * @return void
-     */
     public function testExtendShouldExtendFirewallsWhenFirewallsExist(): void
     {
         // Arrange
@@ -128,9 +119,6 @@ class ValidateCustomerSessionSecurityPluginTest extends Unit
         $this->assertArrayHasKey(static::FIREWALL_KEY_CONTEXT, $securityFirewall);
     }
 
-    /**
-     * @return void
-     */
     public function testExtendShouldExtendContainerWithAuthenticationListenerFactory(): void
     {
         // Arrange
@@ -144,9 +132,6 @@ class ValidateCustomerSessionSecurityPluginTest extends Unit
         $this->assertTrue($container->has(static::SECURITY_FACTORY_CUSTOMER_SESSION_VALIDATOR));
     }
 
-    /**
-     * @return void
-     */
     public function testExtendShouldExtendContainerWithAuthenticationListenerPrototype(): void
     {
         // Arrange

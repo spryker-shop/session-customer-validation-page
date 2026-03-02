@@ -30,11 +30,6 @@ class CustomerSessionUpdater implements CustomerSessionUpdaterInterface
      */
     protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
 
-    /**
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToSessionClientInterface $sessionClient
-     * @param \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionSaverPluginInterface $customerSessionSaverPlugin
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig
-     */
     public function __construct(
         SessionCustomerValidationPageToSessionClientInterface $sessionClient,
         CustomerSessionSaverPluginInterface $customerSessionSaverPlugin,
@@ -45,11 +40,6 @@ class CustomerSessionUpdater implements CustomerSessionUpdaterInterface
         $this->sessionCustomerValidationPageConfig = $sessionCustomerValidationPageConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return void
-     */
     public function update(CustomerTransfer $customerTransfer): void
     {
         if (!$customerTransfer->getIdCustomer()) {

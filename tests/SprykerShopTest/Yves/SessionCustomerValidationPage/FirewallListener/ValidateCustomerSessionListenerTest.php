@@ -34,9 +34,6 @@ class ValidateCustomerSessionListenerTest extends Unit
      */
     protected SessionCustomerValidationPageYvesTester $tester;
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldNotInvalidateSessionWhenTokenStorageIsNotSet(): void
     {
         // Arrange
@@ -59,9 +56,6 @@ class ValidateCustomerSessionListenerTest extends Unit
         $validateCustomerSessionListener->authenticate($eventMock);
     }
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldNotInvalidateSessionWhenTokenIsNotSet(): void
     {
         // Arrange
@@ -85,9 +79,6 @@ class ValidateCustomerSessionListenerTest extends Unit
         $validateCustomerSessionListener->authenticate($eventMock);
     }
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldNotInvalidateSessionWhenUserIsNotSet(): void
     {
         // Arrange
@@ -113,9 +104,6 @@ class ValidateCustomerSessionListenerTest extends Unit
         $validateCustomerSessionListener->authenticate($eventMock);
     }
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldNotInvalidateSessionWhenEventDoesNotHaveSession(): void
     {
         // Arrange
@@ -141,9 +129,6 @@ class ValidateCustomerSessionListenerTest extends Unit
         $validateCustomerSessionListener->authenticate($eventMock);
     }
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldNotInvalidateSessionWhenCustomerIsNotFound(): void
     {
         // Arrange
@@ -169,9 +154,6 @@ class ValidateCustomerSessionListenerTest extends Unit
         $validateCustomerSessionListener->authenticate($eventMock);
     }
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldNotInvalidateSessionWhenSessionCustomerIsValid(): void
     {
         // Arrange
@@ -197,9 +179,6 @@ class ValidateCustomerSessionListenerTest extends Unit
         $validateCustomerSessionListener->authenticate($eventMock);
     }
 
-    /**
-     * @return void
-     */
     public function testAuthenticateShouldInvalidateSessionWhenSessionCustomerIsInvalid(): void
     {
         // Arrange

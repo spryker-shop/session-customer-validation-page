@@ -48,11 +48,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
      */
     public const CLIENT_SESSION = 'CLIENT_SESSION';
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
@@ -66,11 +61,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
         return $container;
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addCustomerSessionSaverPlugin(Container $container): Container
     {
         $container->set(static::PLUGIN_CUSTOMER_SESSION_SAVER, function () {
@@ -136,11 +126,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
         );
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addCustomerSessionValidatorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CUSTOMER_SESSION_VALIDATOR, function () {
@@ -158,11 +143,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
         return [];
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addCustomerClient(Container $container): Container
     {
         $container->set(static::CLIENT_CUSTOMER, function (Container $container) {
@@ -174,11 +154,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
         return $container;
     }
 
-    /**
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
-     */
     protected function addSessionClient(Container $container): Container
     {
         $container->set(static::CLIENT_SESSION, function (Container $container) {

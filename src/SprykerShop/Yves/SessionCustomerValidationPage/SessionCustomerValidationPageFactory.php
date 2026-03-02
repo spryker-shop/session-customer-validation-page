@@ -26,9 +26,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class SessionCustomerValidationPageFactory extends AbstractFactory
 {
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     public function createSaveCustomerSessionEventSubscriber(): EventSubscriberInterface
     {
         return new SaveCustomerSessionEventSubscriber(
@@ -38,9 +35,6 @@ class SessionCustomerValidationPageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPage\Updater\CustomerSessionUpdaterInterface
-     */
     public function createCustomerSessionUpdater(): CustomerSessionUpdaterInterface
     {
         return new CustomerSessionUpdater(
@@ -50,9 +44,6 @@ class SessionCustomerValidationPageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPage\FirewallListener\ValidateCustomerSessionListenerInterface
-     */
     public function createValidateCustomerSessionListener(): ValidateCustomerSessionListenerInterface
     {
         return new ValidateCustomerSessionListener(
@@ -63,9 +54,6 @@ class SessionCustomerValidationPageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPage\Extender\SessionCustomerValidationSecurityExtenderInterface
-     */
     public function createSessionCustomerValidationSecurityExtender(): SessionCustomerValidationSecurityExtenderInterface
     {
         return new SessionCustomerValidationSecurityExtender(
@@ -74,33 +62,21 @@ class SessionCustomerValidationPageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionSaverPluginInterface
-     */
     public function getCustomerSessionSaverPlugin(): CustomerSessionSaverPluginInterface
     {
         return $this->getProvidedDependency(SessionCustomerValidationPageDependencyProvider::PLUGIN_CUSTOMER_SESSION_SAVER);
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface
-     */
     public function getCustomerSessionValidatorPlugin(): CustomerSessionValidatorPluginInterface
     {
         return $this->getProvidedDependency(SessionCustomerValidationPageDependencyProvider::PLUGIN_CUSTOMER_SESSION_VALIDATOR);
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface
-     */
     public function getCustomerClient(): SessionCustomerValidationPageToCustomerClientInterface
     {
         return $this->getProvidedDependency(SessionCustomerValidationPageDependencyProvider::CLIENT_CUSTOMER);
     }
 
-    /**
-     * @return \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToSessionClientInterface
-     */
     public function getSessionClient(): SessionCustomerValidationPageToSessionClientInterface
     {
         return $this->getProvidedDependency(SessionCustomerValidationPageDependencyProvider::CLIENT_SESSION);
