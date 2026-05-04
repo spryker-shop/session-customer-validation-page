@@ -158,7 +158,11 @@ class ValidateCustomerSessionListenerTest extends Unit
     {
         // Arrange
         $validateCustomerSessionListener = new ValidateCustomerSessionListener(
-            $this->tester->createCustomerClientMock((new CustomerTransfer())->setIdCustomer(1)),
+            $this->tester->createCustomerClientMock(
+                (new CustomerTransfer())
+                    ->setIdCustomer(1)
+                    ->setCustomerReference('customer_reference'),
+            ),
             $this->tester->createCustomerSessionValidatorPluginMock(true),
             $this->tester->createConfigMock(),
             [],
@@ -183,7 +187,11 @@ class ValidateCustomerSessionListenerTest extends Unit
     {
         // Arrange
         $validateCustomerSessionListener = new ValidateCustomerSessionListener(
-            $this->tester->createCustomerClientMock((new CustomerTransfer())->setIdCustomer(1)),
+            $this->tester->createCustomerClientMock(
+                (new CustomerTransfer())
+                    ->setIdCustomer(1)
+                    ->setCustomerReference('customer_reference'),
+            ),
             $this->tester->createCustomerSessionValidatorPluginMock(),
             $this->tester->createConfigMock(),
             [],

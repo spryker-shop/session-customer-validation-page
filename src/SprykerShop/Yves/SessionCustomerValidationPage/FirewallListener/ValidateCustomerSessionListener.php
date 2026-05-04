@@ -13,6 +13,7 @@ use SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPage
 use SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -65,6 +66,10 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
         }
 
         $session = $event->getRequest()->getSession();
+
+        if (!$currentCustomer->getIdCustomer() || !$currentCustomer->getCustomerReference()) {
+            $this->customerLogout($session, $event);
+        }
         $sessionEntityRequestTransfer = (new SessionEntityRequestTransfer())
             ->setIdEntity($currentCustomer->getIdCustomerOrFail())
             ->setIdSession($session->getId())
@@ -76,14 +81,7 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
         foreach ($this->customerSessionValidatorPlugins as $customerSessionValidatorPlugin) {
             $sessionEntityResponseTransfer = $customerSessionValidatorPlugin->validate($sessionEntityRequestTransfer);
             if ($sessionEntityResponseTransfer->getIsSuccessfull() === false) {
-                $this->customerClient->logout();
-                $session->invalidate(static::SESSION_INVALIDATE_LIFETIME);
-
-                /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage */
-                $tokenStorage = $this->tokenStorage;
-                $tokenStorage->setToken(null);
-
-                $event->setResponse(new RedirectResponse(static::LOGIN_PATH));
+                $this->customerLogout($session, $event);
             }
         }
     }
@@ -102,5 +100,17 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
         $token = $this->tokenStorage->getToken();
 
         return $token !== null && $token->getUser() instanceof UserInterface && $event->getRequest()->hasSession();
+    }
+
+    public function customerLogout(SessionInterface $session, RequestEvent $event): void
+    {
+        $this->customerClient->logout();
+        $session->invalidate(static::SESSION_INVALIDATE_LIFETIME);
+
+        /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage */
+        $tokenStorage = $this->tokenStorage;
+        $tokenStorage->setToken(null);
+
+        $event->setResponse(new RedirectResponse(static::LOGIN_PATH));
     }
 }
