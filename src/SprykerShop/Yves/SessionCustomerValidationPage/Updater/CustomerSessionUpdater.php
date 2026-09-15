@@ -15,19 +15,10 @@ use SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\Cu
 
 class CustomerSessionUpdater implements CustomerSessionUpdaterInterface
 {
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToSessionClientInterface
-     */
     protected SessionCustomerValidationPageToSessionClientInterface $sessionClient;
 
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionSaverPluginInterface
-     */
     protected CustomerSessionSaverPluginInterface $customerSessionSaverPlugin;
 
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig
-     */
     protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
 
     public function __construct(

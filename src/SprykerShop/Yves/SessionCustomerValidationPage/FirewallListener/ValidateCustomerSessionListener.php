@@ -34,11 +34,7 @@ class ValidateCustomerSessionListener extends AbstractListener implements Valida
     protected const SESSION_INVALIDATE_LIFETIME = 0;
 
     /**
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface $customerClient
-     * @param \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface $customerSessionValidatorPlugin
-     * @param \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig
      * @param array<\SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface> $customerSessionValidatorPlugins
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface|null $tokenStorage
      */
     public function __construct(
         protected SessionCustomerValidationPageToCustomerClientInterface $customerClient,

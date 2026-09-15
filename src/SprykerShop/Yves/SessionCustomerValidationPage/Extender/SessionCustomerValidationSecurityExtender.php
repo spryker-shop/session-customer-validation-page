@@ -51,14 +51,8 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
      */
     protected const FIREWALL_KEY_CONTEXT = 'context';
 
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\FirewallListener\ValidateCustomerSessionListenerInterface
-     */
     protected ValidateCustomerSessionListenerInterface $validateCustomerSessionListener;
 
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig
-     */
     protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
 
     public function __construct(
@@ -139,9 +133,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
     }
 
     /**
-     * @param \Spryker\Shared\SecurityExtension\Configuration\SecurityBuilderInterface $securityBuilder
-     * @param string $firewallName
-     *
      * @return array<string, mixed>|null
      */
     protected function findFirewall(SecurityBuilderInterface $securityBuilder, string $firewallName): ?array
@@ -157,8 +148,6 @@ class SessionCustomerValidationSecurityExtender implements SessionCustomerValida
 
     /**
      * @deprecated Shim for Symfony Security Core 5.x, to be removed when Symfony Security Core dependency becomes 6.x+.
-     *
-     * @return bool
      */
     protected function isSymfonyVersion5(): bool
     {

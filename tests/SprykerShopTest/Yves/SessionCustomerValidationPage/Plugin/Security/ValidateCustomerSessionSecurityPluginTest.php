@@ -68,9 +68,6 @@ class ValidateCustomerSessionSecurityPluginTest extends Unit
      */
     protected const SERVICE_SECURITY_AUTHENTICATION_LISTENER_CUSTOMER_SESSION_VALIDATOR_PROTO = 'security.authentication_listener.customer_session_validator._proto';
 
-    /**
-     * @var \SprykerShopTest\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageYvesTester
-     */
     protected SessionCustomerValidationPageYvesTester $tester;
 
     protected function setUp(): void

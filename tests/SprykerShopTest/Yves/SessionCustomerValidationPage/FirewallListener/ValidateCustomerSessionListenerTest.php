@@ -29,9 +29,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 class ValidateCustomerSessionListenerTest extends Unit
 {
-    /**
-     * @var \SprykerShopTest\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageYvesTester
-     */
     protected SessionCustomerValidationPageYvesTester $tester;
 
     public function testAuthenticateShouldNotInvalidateSessionWhenTokenStorageIsNotSet(): void

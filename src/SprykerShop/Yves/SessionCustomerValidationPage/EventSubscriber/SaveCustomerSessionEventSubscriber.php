@@ -22,19 +22,10 @@ use Symfony\Component\Security\Http\SecurityEvents;
 
 class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface
-     */
     protected SessionCustomerValidationPageToCustomerClientInterface $customerClient;
 
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionSaverPluginInterface
-     */
     protected CustomerSessionSaverPluginInterface $customerSessionSaverPlugin;
 
-    /**
-     * @var \SprykerShop\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageConfig
-     */
     protected SessionCustomerValidationPageConfig $sessionCustomerValidationPageConfig;
 
     public function __construct(
@@ -84,9 +75,7 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $customerTransfer = $this->customerClient->getCustomerByEmail(
-            (new CustomerTransfer())->setEmail($this->getUserIdentifier($user)),
-        );
+        $customerTransfer = $this->getCustomerTransfer($user);
 
         if (!$customerTransfer->getIdCustomer()) {
             return;
@@ -103,6 +92,17 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
         );
     }
 
+    protected function getCustomerTransfer(UserInterface $user): CustomerTransfer
+    {
+        if (method_exists($user, 'getCustomerTransfer')) {
+            return $user->getCustomerTransfer();
+        }
+
+        return $this->customerClient->getCustomerByEmail(
+            (new CustomerTransfer())->setEmail($this->getUserIdentifier($user)),
+        );
+    }
+
     protected function getUserIdentifier(UserInterface $user): string
     {
         if ($this->isSymfonyVersion5() === true) {
@@ -114,8 +114,6 @@ class SaveCustomerSessionEventSubscriber implements EventSubscriberInterface
 
     /**
      * @deprecated Shim for Symfony Security Core 5.x, to be removed when Symfony Security Core dependency becomes 6.x+.
-     *
-     * @return bool
      */
     protected function isSymfonyVersion5(): bool
     {

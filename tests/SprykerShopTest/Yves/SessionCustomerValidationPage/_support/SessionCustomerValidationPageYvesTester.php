@@ -44,8 +44,6 @@ class SessionCustomerValidationPageYvesTester extends Actor
     protected const SESSION_ENTITY_TYPE = 'customer';
 
     /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer|null $customerTransfer
-     *
      * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerShop\Yves\SessionCustomerValidationPage\Dependency\Client\SessionCustomerValidationPageToCustomerClientInterface
      */
     public function createCustomerClientMock(?CustomerTransfer $customerTransfer = null): SessionCustomerValidationPageToCustomerClientInterface
@@ -68,8 +66,6 @@ class SessionCustomerValidationPageYvesTester extends Actor
     }
 
     /**
-     * @param bool $isSessionValid
-     *
      * @return \PHPUnit\Framework\MockObject\MockObject|\SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface
      */
     public function createCustomerSessionValidatorPluginMock(bool $isSessionValid = false): CustomerSessionValidatorPluginInterface
@@ -93,8 +89,6 @@ class SessionCustomerValidationPageYvesTester extends Actor
     }
 
     /**
-     * @param bool $withUser
-     *
      * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Security\Core\Authentication\Token\TokenInterface
      */
     public function createAuthenticationTokenMock(bool $withUser = false): TokenInterface
@@ -110,5 +104,46 @@ class SessionCustomerValidationPageYvesTester extends Actor
                 'getUser' => $userMock,
             ],
         );
+    }
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Security\Core\Authentication\Token\TokenInterface
+     */
+    public function createAuthenticationTokenMockWithCustomerUser(CustomerTransfer $customerTransfer): TokenInterface
+    {
+        return Stub::makeEmpty(
+            TokenInterface::class,
+            [
+                'getUser' => $this->createCustomerUserMock($customerTransfer),
+            ],
+        );
+    }
+
+    public function createCustomerUserMock(CustomerTransfer $customerTransfer): UserInterface
+    {
+        return new class ($customerTransfer) implements UserInterface {
+            public function __construct(protected CustomerTransfer $customerTransfer)
+            {
+            }
+
+            public function getCustomerTransfer(): CustomerTransfer
+            {
+                return $this->customerTransfer;
+            }
+
+            public function getRoles(): array
+            {
+                return [];
+            }
+
+            public function eraseCredentials(): void
+            {
+            }
+
+            public function getUserIdentifier(): string
+            {
+                return 'test@spryker.com';
+            }
+        };
     }
 }

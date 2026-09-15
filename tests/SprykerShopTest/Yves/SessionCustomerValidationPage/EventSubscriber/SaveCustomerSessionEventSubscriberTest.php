@@ -29,9 +29,6 @@ use Symfony\Component\Security\Http\SecurityEvents;
  */
 class SaveCustomerSessionEventSubscriberTest extends Unit
 {
-    /**
-     * @var \SprykerShopTest\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageYvesTester
-     */
     protected SessionCustomerValidationPageYvesTester $tester;
 
     public function testGetSubscribedEventsShouldReturnEvents(): void
@@ -162,9 +159,31 @@ class SaveCustomerSessionEventSubscriberTest extends Unit
         $saveCustomerSessionEventSubscriber->onInteractiveLogin($event);
     }
 
+    public function testOnInteractiveLoginShouldSaveSessionCustomerDataFromUserWithoutCallingCustomerClientWhenUserExposesCustomerTransfer(): void
+    {
+        // Arrange
+        $customerClientMock = $this->tester->createCustomerClientMock();
+        $customerSessionSaverPluginMock = $this->tester->createCustomerSessionSaverPluginMock();
+        $saveCustomerSessionEventSubscriber = new SaveCustomerSessionEventSubscriber(
+            $customerClientMock,
+            $customerSessionSaverPluginMock,
+            $this->tester->createConfigMock(),
+        );
+
+        $event = new InteractiveLoginEvent(
+            $this->createRequestMock(true),
+            $this->tester->createAuthenticationTokenMockWithCustomerUser((new CustomerTransfer())->setIdCustomer(1)),
+        );
+
+        // Assert
+        $customerClientMock->expects($this->never())->method('getCustomerByEmail');
+        $customerSessionSaverPluginMock->expects($this->once())->method('saveSession');
+
+        // Act
+        $saveCustomerSessionEventSubscriber->onInteractiveLogin($event);
+    }
+
     /**
-     * @param bool $withSession
-     *
      * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
      */
     protected function createRequestMock(bool $withSession = false): Request

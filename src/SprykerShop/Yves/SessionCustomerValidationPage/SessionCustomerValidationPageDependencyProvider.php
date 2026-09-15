@@ -72,8 +72,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
 
     /**
      * @throws \SprykerShop\Yves\SessionCustomerValidationPage\Exception\MissingCustomerSessionSaverPluginException
-     *
-     * @return \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionSaverPluginInterface
      */
     protected function getCustomerSessionSaverPlugin(): CustomerSessionSaverPluginInterface
     {
@@ -91,10 +89,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
 
     /**
      * @deprecated use {@link addCustomerSessionValidatorPlugins()} instead.
-     *
-     * @param \Spryker\Yves\Kernel\Container $container
-     *
-     * @return \Spryker\Yves\Kernel\Container
      */
     protected function addCustomerSessionValidatorPlugin(Container $container): Container
     {
@@ -109,8 +103,6 @@ class SessionCustomerValidationPageDependencyProvider extends AbstractBundleDepe
      * @deprecated Use {@link getCustomerSessionValidatorPluginS()} instead.
      *
      * @throws \SprykerShop\Yves\SessionCustomerValidationPage\Exception\MissingCustomerSessionValidatorPluginException
-     *
-     * @return \SprykerShop\Yves\SessionCustomerValidationPageExtension\Dependency\Plugin\CustomerSessionValidatorPluginInterface
      */
     protected function getCustomerSessionValidatorPlugin(): CustomerSessionValidatorPluginInterface
     {

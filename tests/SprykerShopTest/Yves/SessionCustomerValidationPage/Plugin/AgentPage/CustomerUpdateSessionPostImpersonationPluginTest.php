@@ -27,9 +27,6 @@ use SprykerShopTest\Yves\SessionCustomerValidationPage\SessionCustomerValidation
  */
 class CustomerUpdateSessionPostImpersonationPluginTest extends Unit
 {
-    /**
-     * @var \SprykerShopTest\Yves\SessionCustomerValidationPage\SessionCustomerValidationPageYvesTester
-     */
     protected SessionCustomerValidationPageYvesTester $tester;
 
     public function testExecuteShouldNotUpdateSessionWhenCustomerIsNotValid(): void
